@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; scroll-padding-top: 7rem; }
+body { @apply bg-mist font-sans text-ink antialiased; }
+h1, h2, h3 { letter-spacing: -0.01em; }
+
+:focus-visible { outline: 2px solid #C9A24A; outline-offset: 3px; border-radius: 4px; }
+
+/* Fine engineering-paper grid, used on dark sections */
+.cell-grid {
+  background-image:
+    linear-gradient(rgba(226,232,240,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(226,232,240,.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.cell-grid-light {
+  background-image:
+    linear-gradient(rgba(10,21,34,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,21,34,.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Cards: hairline border, lift and brass edge on hover */
+.lift { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.lift:hover { transform: translateY(-4px); border-color: #C9A24A; box-shadow: 0 18px 40px -20px rgba(10,21,34,.35); }
+
+/* Buttons */
+.btn-brass { @apply inline-flex items-center justify-center gap-2 rounded-md bg-amber px-6 py-3 text-sm font-semibold tracking-wide text-navy transition-all duration-200; }
+.btn-brass:hover { background: #E2C67E; transform: translateY(-2px); box-shadow: 0 12px 28px -12px rgba(201,162,74,.8); }
+.btn-ghost { @apply inline-flex items-center justify-center gap-2 rounded-md border border-white/30 px-6 py-3 text-sm font-semibold tracking-wide text-white transition-all duration-200; }
+.btn-ghost:hover { border-color: #C9A24A; color: #E2C67E; transform: translateY(-2px); }
+
+@keyframes dash-flow { to { stroke-dashoffset: -24; } }
+.flow-dash { stroke-dasharray: 6 6; animation: dash-flow 0.9s linear infinite; }
+@keyframes shimmer { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
+.heat-shimmer { animation: shimmer 0.7s ease-in-out infinite; }
+@keyframes sheen { 0% { transform: translateX(-120%); } 100% { transform: translateX(220%); } }
+.sheen::after { content: ""; position: absolute; inset: 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent); animation: sheen 3.2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .flow-dash, .heat-shimmer, .sheen::after { animation: none; }
+  .lift:hover, .btn-brass:hover, .btn-ghost:hover { transform: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
